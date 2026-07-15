@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# 🦄 Uniswap V2 Clone — Frontend
 
-First, run the development server:
+**A swap interface for a from-scratch Uniswap V2 clone**, built with Next.js, TypeScript, wagmi, and RainbowKit.
+
+Contracts (AMM, liquidity pools, flash swaps, TWAP oracle, full Foundry test suite) live in the companion repo: [**uniswap-v2-clone**](https://github.com/sanjaysugunan/uniswap-v2-clone)
+
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![wagmi](https://img.shields.io/badge/wagmi-black?style=for-the-badge)
+![RainbowKit](https://img.shields.io/badge/RainbowKit-1E1E1E?style=for-the-badge&logo=rainbow&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+
+</div>
+
+---
+
+## 🚧 Status
+
+Actively in progress. Core UI (header, connect wallet, swap card with token selection) is built; on-chain read/write logic (quotes, approvals, swap execution) is being wired up next.
+
+## ✨ Features
+
+- **Wallet connection** via RainbowKit — connect, switch networks, view account
+- **Swap interface** — enter an amount, pick a token to sell and a token to buy from dropdown selectors, with the output amount calculated automatically
+- **Token selection dropdowns** with search-free quick-select lists, preventing the same token being picked on both sides
+- **Responsive header/nav** across Swap, Liquidity, Pools, and Faucet pages
+- Clean, dark, Uniswap-inspired UI built with Tailwind
+
+## 🧰 Tech Stack
+
+| Layer | Tools |
+|---|---|
+| Framework | Next.js (App Router), TypeScript |
+| UI | React, Tailwind CSS, lucide-react icons |
+| Wallet / Web3 | wagmi, RainbowKit, viem |
+| Contracts consumed | [uniswap-v2-clone](https://github.com/sanjaysugunan/uniswap-v2-clone) (Foundry, Solidity) |
+
+## 📁 Project Structure
+
+```
+uniswap-v2-frontend/
+├── app/            # Next.js App Router pages & layouts
+├── components/     # UI components (Header, SwapCard, etc.)
+├── lib/            # wagmi config, contract ABIs/addresses, helpers
+├── public/         # static assets (logo, icons)
+└── ...config files
+```
+
+## 🚀 Getting Started
+
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/sanjaysugunan/uniswap-v2-frontend.git
+cd uniswap-v2-frontend
+npm install
+```
+
+Run the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+You'll need a WalletConnect / RainbowKit project ID and your deployed contract addresses. Create a `.env.local`:
 
-## Learn More
+```bash
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
+NEXT_PUBLIC_ROUTER_ADDRESS=0x...
+NEXT_PUBLIC_FACTORY_ADDRESS=0x...
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🗺️ Roadmap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [x] Header + wallet connect
+- [x] Swap card UI with token dropdowns and calculated output
+- [ ] Hook up live reserves/quotes from the AMM contracts
+- [ ] Token approval + swap execution flow
+- [ ] Liquidity add/remove pages
+- [ ] Pools overview page
+- [ ] Testnet faucet page
+- [ ] Transaction status toasts / slippage settings
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔗 Related
 
-## Deploy on Vercel
+- Contracts: [uniswap-v2-clone](https://github.com/sanjaysugunan/uniswap-v2-clone)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 👤 Author
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Sanjay** — DeFi Protocol Engineer
+
+[![Twitter](https://img.shields.io/badge/-@s4njyy-1DA1F2?style=flat-square&logo=x&logoColor=white)](https://x.com/s4njyy)
+[![LinkedIn](https://img.shields.io/badge/-sanjaysugunan-0077B5?logo=linkedin)](https://www.linkedin.com/in/sanjaysugunan/)
