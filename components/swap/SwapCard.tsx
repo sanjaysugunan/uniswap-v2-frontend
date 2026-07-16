@@ -87,7 +87,7 @@ export default function SwapCard() {
 
             {/* Action Button */}
             <button className="mt-3 w-full rounded-2xl bg-[#680047] py-4 text-2xl font-black tracking-tight transition hover:bg-[#F50DB4] hover:text-white">
-                SWAP TOKENS
+                CALCULATE OUTPUT
             </button>
         </div>
     );
