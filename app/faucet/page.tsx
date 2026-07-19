@@ -1,21 +1,72 @@
 "use client";
 
+import { useChainId, useWriteContract, useConfig, useAccount } from "wagmi"
+import { waitForTransactionReceipt } from "wagmi/actions"
+import { useState } from "react";
+import { contracts, erc20Abi } from "@/lib/constants"
+
 const tokens = [
-    { symbol: "A", name: "Token A" },
-    { symbol: "B", name: "Token B" },
-    { symbol: "C", name: "Token C" },
-];
+    {
+        symbol: "A",
+        name: "Token A",
+        key: "tokenA",
+    },
+    {
+        symbol: "B",
+        name: "Token B",
+        key: "tokenB",
+    },
+    {
+        symbol: "C",
+        name: "Token C",
+        key: "tokenC",
+    },
+] as const
+
 
 export default function FaucetPage() {
+
+    const chainId = useChainId()
+    const config = useConfig()
+    const { isConnected } = useAccount()
+    const [pendingToken, setPendingToken] = useState<string | null>(null)
+
+    const { writeContractAsync } = useWriteContract()
+
+    const currentContracts = contracts[chainId]
+
+    async function requestTokens( tokenKey: string, tokenAddress: `0x${string}`) {
+        if (!isConnected) {
+            alert("Please connect your wallet first.")
+            return
+        }
+
+        try {
+            setPendingToken(tokenKey)
+
+            const hash = await writeContractAsync({
+                abi: erc20Abi,
+                address: tokenAddress,
+                functionName: "mint",
+            })
+
+            await waitForTransactionReceipt(config, { hash })
+
+            alert("Successfully minted 10 test tokens!")
+        } finally {
+            setPendingToken(null)
+        }
+}
+
     return (
         <main className="mx-auto flex min-h-[calc(100vh-80px)] max-w-7xl items-center justify-center px-6 py-12">
             <div className="w-full">
                 <div className="mb-14 text-center">
-                    <h1 className="text-5xl font-black text-white">
+                    <h1 className="text-3xl font-black text-white">
                         ERC-20 Test Token Faucet
                     </h1>
 
-                    <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-zinc-400">
+                    <p className="mx-auto mt-5 max-w-3xl text-sm leading-8 text-zinc-400">
                         Need tokens to test the DEX? Request free ERC-20 test
                         tokens for your connected wallet. Each request mints{" "}
                         <span className="font-bold text-white">10 tokens</span>{" "}
@@ -37,11 +88,11 @@ export default function FaucetPage() {
                             <div className="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-[#F50DB4]/10 blur-3xl transition-all duration-300 group-hover:bg-[#F50DB4]/20" />
 
                             <div className="relative flex flex-col items-center text-center">
-                                <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[#F50DB4]/10 text-5xl font-black text-[#F50DB4]">
+                                <div className="mb-6 flex h-15 w-15 items-center justify-center rounded-full bg-[#F50DB4]/10 text-5xl font-black text-[#F50DB4]">
                                     {token.symbol}
                                 </div>
 
-                                <h2 className="text-3xl font-black text-white">
+                                <h2 className="text-2xl font-black text-white">
                                     {token.name}
                                 </h2>
 
@@ -55,8 +106,11 @@ export default function FaucetPage() {
                                     functionality.
                                 </p>
 
-                                <button className="mt-8 w-full rounded-2xl bg-[#F50DB4] py-3 text-lg font-black text-white transition-colors duration-200 hover:bg-[#E000A1]">
-                                    Request Test Tokens
+                                <button
+                                    onClick={() => requestTokens(token.key, currentContracts.tokens[token.key]) }
+                                    className="mt-8 w-full rounded-2xl bg-[#F50DB4] py-3 text-md font-black text-white transition-colors duration-200 hover:bg-[#E000A1]"
+                                >
+                                    {pendingToken === token.key ? "Requesting..." : "Request Test Tokens"}
                                 </button>
                             </div>
                         </div>

@@ -3,17 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BookOpen } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Header() {
     return (
         <header className="sticky top-0 z-50 bg-transparent">
-            <div className="flex h-20 w-full items-center justify-between px-4 sm:px-6 lg:px-8">
+            <div className="grid h-20 w-full grid-cols-3 items-center px-4 sm:px-6 lg:px-8">
                 {/* Left */}
                 <div className="flex items-center gap-10">
                     <Link
                         href="/"
-                        className="transition duration-200 hover:scale-[1.02] hover:opacity-95"
+                        className="transition duration-200 hover:scale-[1.05] hover:opacity-95"
                     >
                         <Image
                             src="/uniswap.png"
@@ -25,7 +26,7 @@ export default function Header() {
                     </Link>
 
                     {/* Navigation Container */}
-                    <nav className="hidden items-center gap-1 rounded-full bg-[#17181D]/55 p-2 backdrop-blur-xl md:flex">
+                    <nav className="transition duration-200 hover:scale-[1.05] hidden items-center gap-1 rounded-full bg-[#17181D]/55 p-2 backdrop-blur-xl md:flex">
                          <NavLink href="/">Swap</NavLink>
                          <NavLink href="/liquidity">Liquidity</NavLink>
                         <NavLink href="/pools">Pools</NavLink>
@@ -33,8 +34,19 @@ export default function Header() {
                     </nav>
                 </div>
 
+                {/* Center */}
+                <div className="flex items-center justify-center">
+                    <Link
+                        href="/readme"
+                        className="flex items-center gap-2 rounded-full border border-white/10 bg-[#17181D]/55 px-5 py-2.5 text-sm font-bold text-zinc-300 backdrop-blur-xl transition duration-200 hover:scale-[1.05] hover:bg-[#262626] hover:text-white"
+                    >
+                        <BookOpen size={16} />
+                        README
+                    </Link>
+                </div>
+
                 {/* Right */}
-                <div className="flex items-center">
+                <div className="flex items-center justify-end">
                     <ConnectButton />
                 </div>
             </div>
