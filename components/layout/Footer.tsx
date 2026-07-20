@@ -3,7 +3,7 @@ const LINKS = {
     frontendRepo: "https://github.com/sanjaysugunan/uniswap-v2-frontend",
     backendRepo: "https://github.com/sanjaysugunan/uniswap-v2-clone",
     linkedin: "https://linkedin.com/in/sanjaysugunan",
-    x: "https://x.com/sanjaysugunan",
+    x: "https://x.com/s4njyy",
 };
 
 export default function Footer() {
