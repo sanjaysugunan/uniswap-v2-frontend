@@ -11,17 +11,18 @@ const POOLS: Pool[] = TOKENS.flatMap((tokenA, i) =>
 
 export default function PoolsPage() {
     return (
-        <main className="flex min-h-[calc(100vh-80px)] flex-col items-center gap-3 px-4 py-10">
-            <div className="mb-2 w-full max-w-3xl">
-                <h1 className="flex justify-center text-4xl font-semibold text-white">
+        <main className="flex min-h-[calc(100vh-80px)] flex-col items-center px-4 pt-20 pb-10">
+            <div className="mb-8 w-full max-w-3xl text-center">
+                <h1 className="text-4xl font-semibold text-white">
                     Pools
                 </h1>
-                <p className="flex justify-center text-xl text-zinc-400">
+
+                <p className="mt-2 text-xl text-zinc-400">
                     Select a pool and view its current reserves.
                 </p>
             </div>
 
-            <div className="flex w-full max-w-5xl flex-col justify-center gap-3">
+            <div className="flex w-full max-w-5xl flex-col gap-4">
                 {POOLS.map((pool) => (
                     <PoolReserveRow
                         key={`${pool.tokenA.key}-${pool.tokenB.key}`}

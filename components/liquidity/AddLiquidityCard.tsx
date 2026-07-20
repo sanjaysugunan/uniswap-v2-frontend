@@ -58,6 +58,8 @@ export default function AddLiquidityCard({
             amount: parsedAmountA,
         });
 
+        alert(`Approval successful! ${tokenA.name} is ready to be swapped.`)
+
         await ensureAllowance({
             config,
             writeContractAsync,
@@ -66,6 +68,8 @@ export default function AddLiquidityCard({
             token: tokenAddressB,
             amount: parsedAmountB,
         });
+
+        alert(`Approval successful! ${tokenB.name} is ready to be swapped.`)
 
         const deadline = BigInt(Math.floor(Date.now() / 1000) + 20 * 60);
 
@@ -86,6 +90,8 @@ export default function AddLiquidityCard({
         });
 
         await waitForTransactionReceipt(config, { hash });
+
+        alert(`Successfully added liquidity to the ${tokenA.name}/${tokenB.name} pool.`);
     }
 
     return (

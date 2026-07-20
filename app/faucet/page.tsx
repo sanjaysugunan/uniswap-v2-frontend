@@ -62,7 +62,7 @@ export default function FaucetPage() {
         <main className="mx-auto flex min-h-[calc(100vh-80px)] max-w-7xl items-center justify-center px-6 py-12">
             <div className="w-full">
                 <div className="mb-14 text-center">
-                    <h1 className="text-3xl font-black text-white">
+                    <h1 className="text-4xl font-black text-white">
                         ERC-20 Test Token Faucet
                     </h1>
 

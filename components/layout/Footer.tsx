@@ -1,7 +1,7 @@
 // TODO: swap these placeholders for your actual URLs
 const LINKS = {
-    frontendRepo: "https://github.com/sanjaysugunan/uniswapv2-frontend",
-    backendRepo: "https://github.com/sanjaysugunan/uniswapv2-clone",
+    frontendRepo: "https://github.com/sanjaysugunan/uniswap-v2-frontend",
+    backendRepo: "https://github.com/sanjaysugunan/uniswap-v2-clone",
     linkedin: "https://linkedin.com/in/sanjaysugunan",
     x: "https://x.com/sanjaysugunan",
 };

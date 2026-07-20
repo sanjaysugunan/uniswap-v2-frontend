@@ -35,14 +35,14 @@ export const contracts: ContractsConfig = {
     // Sepolia
     // -----------------------
     11155111: {
-        factory: "0x",
-        router: "0x",
-        weth: "0x",
+        factory: "0x96E606463d41DAeFf0246D905013aE0CDC5CCef2",
+        router: "0xb15a4579E05Da61E9aDBE77bdD28479E7f6301A3",
+        weth: "0xC558DBdd856501FCd9aaF1E62eae57A9F0629a3c",
 
         tokens: {
-            tokenA: "0x",
-            tokenB: "0x",
-            tokenC: "0x",
+            tokenA: "0x3fA373A4dD14D51204Ae9fA4a304d27ace75618b",
+            tokenB: "0xA8fCf35bacd4bb5524E356A58d7Cda632446c37b",
+            tokenC: "0x646151fae8178D2fe68Ef8095129AeB78332979A",
         },
     },
 }

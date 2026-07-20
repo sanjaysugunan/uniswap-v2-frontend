@@ -148,6 +148,8 @@ export default function SwapCard() {
                 amount: parsedSellAmount,
             });
 
+            alert(`${sellToken.name} approved for swapping.`);
+
             const deadline = BigInt(Math.floor(Date.now() / 1000) + 20 * 60);
 
             const hash = await writeContractAsync({
@@ -164,6 +166,8 @@ export default function SwapCard() {
             });
 
             await waitForTransactionReceipt(config, { hash });
+
+            alert(`Successfully swapped ${sellToken.name} for ${buyToken.name}.`);
 
             setSellAmount("");
             setBuyAmount("");

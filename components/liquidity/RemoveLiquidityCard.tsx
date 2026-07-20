@@ -67,6 +67,8 @@ export default function RemoveLiquidityCard({
             amount: parsedLpAmount,
         });
 
+        alert(`LP tokens for the ${tokenA.name}/${tokenB.name} pool approved.`);
+
         const deadline = BigInt(Math.floor(Date.now() / 1000) + 20 * 60);
 
         const hash = await writeContractAsync({
@@ -85,6 +87,8 @@ export default function RemoveLiquidityCard({
         });
 
         await waitForTransactionReceipt(config, { hash });
+
+        alert(`Successfully removed ${lpAmount} LP tokens from the ${tokenA.name}/${tokenB.name} pool.`);
     }
 
     return (

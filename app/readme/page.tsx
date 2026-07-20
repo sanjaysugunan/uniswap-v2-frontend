@@ -7,171 +7,178 @@ import {
     Minus,
     Plus,
     Repeat,
-    Waves,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
 export default function ReadmePage() {
     return (
-        <main className="flex min-h-[calc(100vh-80px)] justify-center px-4 py-12">
-            <div className="w-full max-w-3xl">
-                <h1 className="flex justify-center text-4xl font-semibold text-white">README</h1>
-                <p className="flex justify-center mt-2 text-xl text-zinc-400">
-                    A quick guide to this demo and how Uniswap V2 actually works
-                    under the hood.
-                </p>
+        <main className="mx-auto max-w-4xl px-6 py-14">
+            <div className="text-center">
+                <h1 className="text-4xl font-semibold text-white">
+                    README
+                </h1>
 
-                {/* What is this */}
-                <Section icon={<Waves size={20} />} title="What this site is">
-                    <p className="flex justify-center mt-2 text-lg text-zinc-400">
-                        This is a demo frontend for a Uniswap V2 clone. It talks
-                        directly to a small set of smart contracts deployed on a
-                        test chain: a Factory (creates and tracks pools), a
-                        Router (the contract your wallet actually calls to add
-                        liquidity, remove liquidity, and swap), and three test
-                        ERC-20 tokens — TKA, TKB, and TKC.
-                    </p>
-                    <p className="flex justify-center mt-2 text-lg text-zinc-400">
-                        Every action here — swapping, adding liquidity, removing
-                        liquidity — sends a real transaction from your connected
-                        wallet, so you&apos;ll need test tokens before anything
-                        will work.
-                    </p>
-                </Section>
-
-                {/* How Uniswap V2 works */}
-                <Section icon={<Layers size={20} />} title="How Uniswap V2 works">
-                    <p className="mt-2 text-lg text-zinc-400">
-                        Uniswap V2 is an automated market maker (AMM). Instead of
-                        matching buyers and sellers with an order book, every
-                        pair of tokens (say TKA/TKB) has its own pool holding a
-                        reserve of both tokens. Prices are set entirely by the
-                        ratio of those two reserves.
-                    </p>
-                    <p className="mt-2 text-lg text-zinc-400">
-                        Each pool enforces a simple invariant:{" "}
-                        <span className="font-mono text-zinc-200">
-                            reserveA × reserveB = k
-                        </span>
-                        . Whenever someone swaps, the contract keeps{" "}
-                        <span className="font-mono text-zinc-200">k</span>{" "}
-                        constant — so buying more of one token pushes its price
-                        up along a curve, rather than at a fixed rate. Larger
-                        trades relative to the pool size move the price more;
-                        that difference between the quoted and executed price is
-                        called <span className="text-zinc-200">slippage</span>.
-                    </p>
-                    <p className="flex justify-center mt-2 text-lg text-zinc-400">
-                        Anyone can become a liquidity provider (LP) by depositing
-                        an equal-value amount of both tokens into a pool. In
-                        return, they receive LP tokens representing their share
-                        of that pool. LP tokens can later be burned to withdraw
-                        the underlying tokens — plus a cut of the trading fees
-                        collected while they were deposited.
-                    </p>
-                </Section>
-
-                {/* Faucet */}
-                <Section icon={<Droplet size={20} />} title="1. Faucet">
-                    <p className="mt-2 text-lg text-zinc-400">
-                        Start here. Connect your wallet and claim 10 of each test
-                        token — TKA, TKB, and TKC — sent directly to your
-                        address. You&apos;ll need these to try anything else on
-                        the site.
-                    </p>
-                </Section>
-
-                {/* Liquidity */}
-                <Section icon={<Plus size={20} />} title="2. Liquidity — Add">
-                    <p className="mt-2 text-lg text-zinc-400">
-                        Toggle which two tokens you want to pair (TKA/TKB,
-                        TKB/TKC, or TKA/TKC), then fill in:
-                    </p>
-                    <ul className="list-disc space-y-1 pl-5 text-lg text-zinc-400">
-                        <li>
-                            <span className="text-zinc-200">Max Token 1 / Max Token 2</span>{" "}
-                            — the most of each token you&apos;re willing to
-                            deposit.
-                        </li>
-                        <li>
-                            <span className="text-zinc-200">Min Token 1 / Min Token 2</span>{" "}
-                            — the least you&apos;ll accept back if the pool ratio
-                            shifts before your transaction confirms. This is your
-                            slippage protection — the transaction reverts rather
-                            than deposit at a worse ratio than you specified.
-                        </li>
-                    </ul>
-                    <p className="mt-2 text-lg text-zinc-400">
-                        If the pool already has liquidity, the contract deposits
-                        both tokens in the pool&apos;s existing ratio (using as
-                        much of your "max" amounts as it can) and mints you LP
-                        tokens for that pair.
-                    </p>
-                </Section>
-
-                <Section icon={<Minus size={20} />} title="3. Liquidity — Remove">
-                    <p className="mt-2 text-lg text-zinc-400">
-                        Toggle the same token pair, then specify how many LP
-                        tokens to burn along with Min Token 1 / Min Token 2 — the
-                        least of each underlying token you&apos;ll accept in
-                        return. Burning LP tokens returns your share of both
-                        reserves, proportional to how much of the pool your LP
-                        tokens represent.
-                    </p>
-                </Section>
-
-                {/* Pools */}
-                <Section icon={<ArrowLeftRight size={20} />} title="4. Pools">
-                    <p className="mt-2 text-lg text-zinc-400">
-                        Browse every TKA/TKB, TKB/TKC, and TKA/TKC pool and check
-                        its current reserves on demand. Reserves are what
-                        determine the live exchange rate for that pair — the
-                        bigger a pool relative to your trade, the less price
-                        impact your swap will have.
-                    </p>
-                </Section>
-
-                {/* Swap */}
-                <Section icon={<Repeat size={20} />} title="5. Swap">
-                    <p className="mt-2 text-lg text-zinc-400">
-                        The main page. Toggle Token 1 and Token 2, enter an
-                        amount of Token 1 to sell, then hit{" "}
-                        <span className="text-zinc-200">Calculate Output</span>{" "}
-                        — this reads the pool&apos;s reserves and quotes what
-                        you&apos;d receive under the constant-product formula
-                        above, including the trading fee. Once quoted, the
-                        button becomes{" "}
-                        <span className="text-zinc-200">Swap</span>, which
-                        approves the router (if needed) and executes the trade.
-                    </p>
-                </Section>
-
-                <p className="flex justify-center mt-10 text-sm text-zinc-500">
-                    This is a test-chain demo — tokens have no real value.
+                <p className="mt-3 text-lg text-zinc-400">
+                    A minimal guide to this Uniswap V2 demo.
                 </p>
             </div>
+
+            <Section title="What is this?">
+                <p>
+                    This project is a simplified implementation of Uniswap V2
+                    built with Solidity, Foundry, Next.js, wagmi and
+                    RainbowKit.
+                </p>
+
+                <p>
+                    Every action interacts directly with smart contracts on a
+                    local test network. Before adding liquidity or swapping,
+                    claim some test tokens from the Faucet.
+                </p>
+            </Section>
+
+            <Section title="How Uniswap V2 works">
+                <div className="space-y-3">
+                    <div className="rounded-xl border border-white/10 bg-zinc-900/60 p-4">
+                        Every trading pair has its own liquidity pool containing
+                        two ERC-20 token reserves.
+                    </div>
+
+                    <div className="rounded-xl border border-white/10 bg-zinc-900/60 p-4">
+                        Liquidity providers deposit both tokens and receive LP
+                        tokens representing their share of the pool.
+                    </div>
+
+                    <div className="rounded-xl border border-white/10 bg-zinc-900/60 p-4">
+                        Swaps follow the constant-product formula:
+                        <div className="mt-2 font-mono text-lg text-white">
+                            reserveA × reserveB = k
+                        </div>
+                        <p className="mt-2">
+                            Larger trades move the price more, creating
+                            slippage.
+                        </p>
+                    </div>
+                </div>
+            </Section>
+
+            <Section title="Pages">
+                <Page
+                    icon={<Droplet size={18} />}
+                    title="Faucet"
+                    description="Claim 10 test tokens (TKA, TKB and TKC). These tokens have no real value and are only used to interact with this demo."
+                />
+
+                <Page
+                    icon={<Plus size={18} />}
+                    title="Add Liquidity"
+                >
+                    <ul className="list-disc space-y-1 pl-5">
+                        <li>Maximum Token A</li>
+                        <li>Maximum Token B</li>
+                        <li>Minimum Token A</li>
+                        <li>Minimum Token B</li>
+                    </ul>
+
+                    <p className="mt-3">
+                        The router deposits tokens into the pool and mints LP
+                        tokens representing your ownership.
+                    </p>
+                </Page>
+
+                <Page
+                    icon={<Minus size={18} />}
+                    title="Remove Liquidity"
+                >
+                    <ul className="list-disc space-y-1 pl-5">
+                        <li>LP token amount</li>
+                        <li>Minimum Token A</li>
+                        <li>Minimum Token B</li>
+                    </ul>
+
+                    <p className="mt-3">
+                        Burning LP tokens returns your proportional share of the
+                        pool reserves.
+                    </p>
+                </Page>
+
+                <Page
+                    icon={<ArrowLeftRight size={18} />}
+                    title="Pools"
+                    description="View the reserves of every liquidity pool. Pool reserves determine exchange rates and price impact."
+                />
+
+                <Page
+                    icon={<Repeat size={18} />}
+                    title="Swap"
+                >
+                    <ol className="list-decimal space-y-1 pl-5">
+                        <li>Select two tokens.</li>
+                        <li>Enter the input amount.</li>
+                        <li>Calculate the output.</li>
+                        <li>Approve (if required) and execute the swap.</li>
+                    </ol>
+
+                    <p className="mt-3">
+                        The output amount is calculated from the current pool
+                        reserves using the Uniswap V2 pricing formula.
+                    </p>
+                </Page>
+            </Section>
+
+            <Section title="Notes">
+                <ul className="list-disc space-y-2 pl-5">
+                    <li>Runs on a test(sepolia) network.</li>
+                    <li>Test tokens have no real value.</li>
+                    <li>ERC-20 approvals are required before the router can transfer tokens.</li>
+                    <li>Built for learning and demonstration purposes.</li>
+                </ul>
+            </Section>
         </main>
     );
 }
 
 function Section({
-    icon,
     title,
     children,
 }: {
-    icon: ReactNode;
     title: string;
     children: ReactNode;
 }) {
     return (
-        <div className="mt-4 rounded-3xl border border-white/10 bg-[#1b1b1b] p-6">
-            <div className="mb-3 flex items-center gap-2 text-white">
-                <span className="text-[#F50DB4]">{icon}</span>
-                <h2 className="text-lg font-semibold">{title}</h2>
-            </div>
-            <div className="space-y-3 text-sm leading-relaxed text-zinc-400">
+        <section className="mt-12 border-t border-white/10 pt-8">
+            <h2 className="text-2xl font-semibold text-white">
+                {title}
+            </h2>
+
+            <div className="mt-5 space-y-4 text-zinc-400 leading-7">
                 {children}
             </div>
+        </section>
+    );
+}
+
+function Page({
+    icon,
+    title,
+    description,
+    children,
+}: {
+    icon: ReactNode;
+    title: string;
+    description?: string;
+    children?: ReactNode;
+}) {
+    return (
+        <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-5">
+            <div className="mb-3 flex items-center gap-2">
+                <span className="text-[#F50DB4]">{icon}</span>
+                <h3 className="font-semibold text-white">{title}</h3>
+            </div>
+
+            {description && <p>{description}</p>}
+
+            {children}
         </div>
     );
 }
