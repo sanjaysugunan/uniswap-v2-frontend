@@ -2,9 +2,11 @@
 
 # 🦄 Uniswap V2 Clone — Frontend
 
-**A swap interface for a from-scratch Uniswap V2 clone**, built with Next.js, TypeScript, wagmi, and RainbowKit.
+**A full swap, liquidity, and pool explorer interface for a from-scratch Uniswap V2 clone**, built with Next.js, TypeScript, wagmi, and RainbowKit.
 
 Contracts (AMM, liquidity pools, flash swaps, TWAP oracle, full Foundry test suite) live in the companion repo: [**uniswap-v2-clone**](https://github.com/sanjaysugunan/uniswap-v2-clone)
+
+**[🚀 Live Demo](https://uniswap-v2-clone-sanjay-sugunan.vercel.app/)**
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -12,6 +14,7 @@ Contracts (AMM, liquidity pools, flash swaps, TWAP oracle, full Foundry test sui
 ![wagmi](https://img.shields.io/badge/wagmi-black?style=for-the-badge)
 ![RainbowKit](https://img.shields.io/badge/RainbowKit-1E1E1E?style=for-the-badge&logo=rainbow&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
 </div>
 
@@ -19,15 +22,19 @@ Contracts (AMM, liquidity pools, flash swaps, TWAP oracle, full Foundry test sui
 
 ## 🚧 Status
 
-Actively in progress. Core UI (header, connect wallet, swap card with token selection) is built; on-chain read/write logic (quotes, approvals, swap execution) is being wired up next.
+End-to-end functional on testnet. Every core AMM action — claiming test tokens, adding/removing liquidity, swapping, and inspecting pool reserves — is wired up to live contract calls, not mocked data. Remaining work is mostly polish: see [Roadmap](#️-roadmap).
 
 ## ✨ Features
 
 - **Wallet connection** via RainbowKit — connect, switch networks, view account
-- **Swap interface** — enter an amount, pick a token to sell and a token to buy from dropdown selectors, with the output amount calculated automatically
-- **Token selection dropdowns** with search-free quick-select lists, preventing the same token being picked on both sides
-- **Responsive header/nav** across Swap, Liquidity, Pools, and Faucet pages
-- Clean, dark, Uniswap-inspired UI built with Tailwind
+- **Swap** — enter an amount, pick tokens from dropdown selectors, get a live quote from the pool's reserves via `getAmountsOut`, then execute with a single confirm (auto-approves the router if needed)
+- **Liquidity — Add** — pick a token pair, set max deposit amounts for each side plus min-received floors for slippage protection, and supply liquidity in one flow
+- **Liquidity — Remove** — burn LP tokens for a pair and specify minimum amounts of each underlying token to receive back
+- **Pools** — browse every configured token pair and fetch its live on-chain reserves on demand
+- **Faucet** — claim test tokens (TKA, TKB, TKC) to a connected wallet, no funds required
+- **In-app README page** — a plain-language explainer of the constant-product formula, slippage, and LP tokens, plus a walkthrough of how to use each page
+- **Token selection dropdowns** that prevent picking the same token on both sides of a pair, with a one-click swap/flip control
+- Clean, dark, Uniswap-inspired UI built with Tailwind — floating header nav and a minimal transparent footer with author/repo/social links
 
 ## 🧰 Tech Stack
 
@@ -36,16 +43,28 @@ Actively in progress. Core UI (header, connect wallet, swap card with token sele
 | Framework | Next.js (App Router), TypeScript |
 | UI | React, Tailwind CSS, lucide-react icons |
 | Wallet / Web3 | wagmi, RainbowKit, viem |
+| Deployment | Vercel |
 | Contracts consumed | [uniswap-v2-clone](https://github.com/sanjaysugunan/uniswap-v2-clone) (Foundry, Solidity) |
 
 ## 📁 Project Structure
 
 ```
 uniswap-v2-frontend/
-├── app/            # Next.js App Router pages & layouts
-├── components/     # UI components (Header, SwapCard, etc.)
-├── lib/            # wagmi config, contract ABIs/addresses, helpers
-├── public/         # static assets (logo, icons)
+├── app/
+│   ├── page.tsx            # Swap (home)
+│   ├── liquidity/          # Add / Remove liquidity
+│   ├── pools/               # Pool reserve explorer
+│   ├── faucet/              # Test token faucet
+│   └── readme/              # In-app README / how-it-works page
+├── components/
+│   ├── layout/               # Header, Footer
+│   ├── swap/                 # SwapCard, TokenDropdown
+│   ├── liquidity/            # Add/Remove liquidity cards, LP balance card
+│   └── pools/                 # PoolReserveRow
+├── lib/
+│   ├── constants.ts          # Contract addresses + ABIs per chain
+│   └── liquidity/            # Shared token list, allowance helper
+├── public/                    # Static assets (logo, icons)
 └── ...config files
 ```
 
@@ -75,22 +94,39 @@ You'll need a WalletConnect / RainbowKit project ID and your deployed contract a
 NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
 NEXT_PUBLIC_ROUTER_ADDRESS=0x...
 NEXT_PUBLIC_FACTORY_ADDRESS=0x...
+NEXT_PUBLIC_TOKEN_A_ADDRESS=0x...
+NEXT_PUBLIC_TOKEN_B_ADDRESS=0x...
+NEXT_PUBLIC_TOKEN_C_ADDRESS=0x...
 ```
+
+## 🗺️ Pages
+
+| Route | What it does |
+|---|---|
+| `/` | Swap between TKA, TKB, and TKC with a live quote before you confirm |
+| `/liquidity` | Add liquidity to a pair, or burn LP tokens to remove it |
+| `/pools` | View live reserves for every TKA/TKB, TKB/TKC, and TKA/TKC pool |
+| `/faucet` | Claim test tokens to try everything else on the site |
+| `/readme` | A short explainer of Uniswap V2 mechanics and how to use this app |
 
 ## 🗺️ Roadmap
 
 - [x] Header + wallet connect
-- [x] Swap card UI with token dropdowns and calculated output
-- [ ] Hook up live reserves/quotes from the AMM contracts
-- [ ] Token approval + swap execution flow
-- [ ] Liquidity add/remove pages
-- [ ] Pools overview page
-- [ ] Testnet faucet page
-- [ ] Transaction status toasts / slippage settings
+- [x] Swap — token dropdowns, live quote via `getAmountsOut`, approve + `swapExactTokensForTokens`
+- [x] Liquidity — add flow with min/max fields and allowance handling
+- [x] Liquidity — remove flow with LP burn and min-received fields
+- [x] Pools overview with on-demand reserve reads
+- [x] Testnet faucet page
+- [x] In-app README / onboarding page
+- [ ] Fetch per-token `decimals()` instead of assuming 18 across all tokens
+- [ ] Adjustable slippage tolerance in the UI (currently a fixed default)
+- [ ] Transaction status toasts instead of `alert()` for pending/success/error states
+- [ ] LP position value in underlying-token terms, not just raw LP balance
 
 ## 🔗 Related
 
 - Contracts: [uniswap-v2-clone](https://github.com/sanjaysugunan/uniswap-v2-clone)
+- Live demo: [uniswap-v2-clone-sanjay-sugunan.vercel.app](https://uniswap-v2-clone-sanjay-sugunan.vercel.app/)
 
 ## 👤 Author
 
