@@ -92,11 +92,7 @@ You'll need a WalletConnect / RainbowKit project ID and your deployed contract a
 
 ```bash
 NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
-NEXT_PUBLIC_ROUTER_ADDRESS=0x...
-NEXT_PUBLIC_FACTORY_ADDRESS=0x...
-NEXT_PUBLIC_TOKEN_A_ADDRESS=0x...
-NEXT_PUBLIC_TOKEN_B_ADDRESS=0x...
-NEXT_PUBLIC_TOKEN_C_ADDRESS=0x...
+
 ```
 
 ## 🗺️ Pages
@@ -118,10 +114,6 @@ NEXT_PUBLIC_TOKEN_C_ADDRESS=0x...
 - [x] Pools overview with on-demand reserve reads
 - [x] Testnet faucet page
 - [x] In-app README / onboarding page
-- [ ] Fetch per-token `decimals()` instead of assuming 18 across all tokens
-- [ ] Adjustable slippage tolerance in the UI (currently a fixed default)
-- [ ] Transaction status toasts instead of `alert()` for pending/success/error states
-- [ ] LP position value in underlying-token terms, not just raw LP balance
 
 ## 🔗 Related
 
