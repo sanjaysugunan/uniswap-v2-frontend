@@ -9,7 +9,7 @@ const LINKS = {
 export default function Footer() {
     return (
         <footer className="pointer-events-none fixed inset-x-0 bottom-4 z-40 flex justify-center px-4">
-            <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-white/10 bg-[#17181D]/55 px-5 py-2.5 text-lg text-zinc-400 backdrop-blur-xl">
+            <div className="pointer-events-auto flex items-center gap-4 rounded-full border border-white/10 bg-[#17181D]/55 px-5 py-2.5 text-xm text-zinc-400 backdrop-blur-xl">
                 <span className="hidden sm:inline">
                     Author:{" "}
                     <span className="font-semibold text-zinc-200">
